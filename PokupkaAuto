@@ -1,0 +1,103 @@
+using System;
+
+namespace SystemBank 
+{ 
+    public abstract class Bank 
+    {
+        public abstract void PrintInfo();
+        public abstract bool IsClientByDate(DateTime date);
+    }
+    public class User : Bank 
+    {
+        public string Bankname { get; set; }
+        public string FIO { get; set; }
+        public uint TransactionNumber { get; set; }
+        public DateTime DatePurchase { get; set; }
+        public decimal PurchasePrice { get; set; }
+        public User(string bankname, string fio, uint transactionnumber, DateTime datepurchase, decimal purchaseprice) 
+        {
+            Bankname = bankname;
+            FIO = fio;
+            TransactionNumber = transactionnumber;
+            DatePurchase = datepurchase;
+            PurchasePrice = purchaseprice;
+        }
+        public override void PrintInfo()
+        {
+            Console.WriteLine("Название банка: {0}", Bankname);
+            Console.WriteLine("ФИО пользователя: {0}", FIO);
+            Console.WriteLine("Номер транзакции: {0}",  TransactionNumber);
+            Console.WriteLine("Дата покупки: {0}", DatePurchase.ToShortDateString());
+            Console.WriteLine("Цена покупки: {0} рублей", PurchasePrice);
+        }
+        public override bool IsClientByDate(DateTime date) 
+        {
+            if (DatePurchase == date)
+                return true;            
+            return false;
+                
+        }
+
+
+    }
+    public abstract class СarShowroom
+    {
+        public abstract void PrintInfo();        
+    }
+    public class Cars : СarShowroom
+    {
+        public string Carname { get; set; }
+        public int MaxSpeed { get; set; }
+        public string EngineType { get; set; }
+        public int EnginePower { get; set; }
+        public int VolumeTank{ get; set; }
+        public decimal CarPrice { get; set; }
+        public Cars(string carName, int maxSpeed, string engineType, int enginePower, int volumeTank, decimal carPrice) 
+        {
+            Carname = carName;
+            MaxSpeed = maxSpeed;
+            EngineType = engineType;
+            EnginePower = enginePower;
+            VolumeTank = volumeTank;
+            CarPrice = carPrice;
+        }
+        public override void PrintInfo() 
+        {
+            Console.WriteLine("Марка автомобиля: {0}", Carname);
+            Console.WriteLine("максимальная скорость: {0} км/ч", MaxSpeed);
+            Console.WriteLine("Тип двигателя: {0}", EngineType);
+            Console.WriteLine("Мощность двигателя: {0} л.с. ", EnginePower);
+            Console.WriteLine("Объем бака: {0} литров", VolumeTank );
+            Console.WriteLine("Цена автомобиля: {0} рублей", CarPrice );
+        }
+    }
+    class Programm 
+    {
+        static void Main (string[] args) 
+        {
+            Bank[] BankDataBase = new Bank[]
+            {
+                new User("Альфабанк", "Ромашкин Роман Владимирович", 13565, new DateTime(2022, 4, 2), 2300000m),
+                new User("Сбер", "Ромашкин Владимир Романович", 56513, new DateTime(2022, 4, 2), 2960000m),
+            };
+            foreach (Bank User in BankDataBase)
+            {
+                User.PrintInfo();
+                Console.WriteLine();
+            }
+
+            СarShowroom[] CarsDataBase = new СarShowroom[]
+            {
+                new Cars("Haval v7", 200, "дизельный", 200,90 ,2300000m),
+                new Cars("Haval v8", 220, "дизельный", 210,100 ,2960000m),
+            };
+            foreach (СarShowroom Cars in CarsDataBase) 
+            {
+                Cars.PrintInfo();
+                Console.WriteLine();
+            }
+        }
+    }
+
+
+}
